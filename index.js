@@ -51,3 +51,15 @@ app.get('/', (request, response) => {
   
     response.json(accounts);
   })
+
+  app.delete('/accounts/:id', (request, response) => {
+    const accountId = Number(request.params.id);
+    const newAccounts = accounts.filter((account) => account.id != accountId);
+  
+    if (!newAccounts) {
+      response.status(500).send('Account not found.');
+    } else {
+      accounts = newAccounts;
+      response.send(accounts);
+    }
+  });
